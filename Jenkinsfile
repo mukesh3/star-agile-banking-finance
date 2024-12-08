@@ -46,20 +46,23 @@ pipeline{
         }
         stage('Terraform Init'){
             steps{
-                sh 'cd terraform'
-                sh ' ls -lrt'
-                sh 'terraform  init'
+                dir('terraform'){
+                  sh ' ls -lrt'
+                  sh 'terraform  init'
+                }
             }
         }
         stage('Terraform Plan'){
             steps{
-                sh 'cd terraform'
-                sh 'terraform plan -out tfplan'
-                sh 'terraform show -no-color tfplan > tfplan.txt'
+                dir('terraform'){
+                  sh 'terraform plan -out tfplan'
+                  sh 'terraform show -no-color tfplan > tfplan.txt'
+                }
             }
         }
         stage('Apply / Destroy') {
             steps {
+                dir('terraform'){
                 script {
                     if (params.action == 'apply') {
                         if (!params.autoApprove) {
@@ -76,6 +79,7 @@ pipeline{
                     } else {
                         error "Invalid action selected. Please choose either 'apply' or 'destroy'."
                     }
+                }
                 }
             }
         }
