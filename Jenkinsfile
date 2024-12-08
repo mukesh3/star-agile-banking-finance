@@ -1,4 +1,4 @@
-pipeline
+pipeline{
     
     agent any
     
@@ -18,7 +18,7 @@ pipeline
         choice(name: 'action', choices: ['apply', 'destroy'], description: 'Select the action to perform')
     }
     
-    stages
+    stages{
         stage('Clone Repo')
         {
             steps{
@@ -114,5 +114,5 @@ pipeline
                 sh 'ansible-playbook -i hosts ansible/Playbook_docker.yml'
             }
         }
-    
-
+    }
+}
