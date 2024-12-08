@@ -34,8 +34,3 @@
       apt:
         name: docker-ce
         state: present
-    - name: Install Docker Python SDK using pip
-      pip:
-        name: docker
-        state: present
-        executable: pip3
