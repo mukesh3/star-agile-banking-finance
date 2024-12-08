@@ -90,7 +90,7 @@ pipeline{
                 }
                 }
                 script {
-                    def output = sh(script: 'terraform output -json ec2_public_ip', returnStdout: true).trim()
+                    def output = sh(script: 'terraform output -json instance_public_ip', returnStdout: true).trim()
                     env.EC2_PUBLIC_IP = output.replaceAll('"', '') // Remove quotes if JSON returns them
                 }
             }
@@ -101,7 +101,7 @@ pipeline{
                     // Write the public IP to the Ansible hosts file
                     writeFile file: 'hosts', text: """
                     [webserver]
-                    ${env.EC2_PUBLIC_IP} ansible_user=ec2-user ansible_ssh_private_key_file=./terraform/web-key.pem
+                    ${env.EC2_PUBLIC_IP} ansible_user=ubuntu ansible_ssh_private_key_file=./terraform/web-key.pem
                     """
                 }
             }
