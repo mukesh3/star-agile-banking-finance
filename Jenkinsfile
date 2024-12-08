@@ -116,7 +116,7 @@ pipeline{
         //        sh 'ansible-playbook -i hosts ansible/playbook_docker.yml'
         //        sh 'sleep 120'
         //}
-            }
+        //    }
         stage('Deploy to Test Server') {
             steps {
                 // Run the Ansible playbook using the generated hosts file
