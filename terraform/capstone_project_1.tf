@@ -1,5 +1,4 @@
 provider "aws" {
- alias  = "secondary"
  region = var.region
  access_key = var.access_key
  secret_key = var.secret_key
@@ -14,7 +13,6 @@ resource "aws_vpc" "sa-vpc" {
 }
 
 resource "aws_subnet" "subnet-1" {
-  provider      = aws.secondary
   depends_on = [aws_vpc.sa-vpc]
   vpc_id     = aws_vpc.sa-vpc.id
   cidr_block = "10.0.1.0/24"
