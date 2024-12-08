@@ -108,24 +108,6 @@ resource "aws_instance" "myec2" {
   tags = {
     Name = "Terraform-ec2"
   }
-
-
-
-provisioner "remote-exec" {
- inline = [
-    "sudo apt-get update -y",
-    "sudo apt-get install -y nginx",
-    "sudo systemctl start nginx"
-  ]
-    connection {
-    type     = "ssh"
-    user     = "ubuntu"
-    private_key = tls_private_key.mykey.private_key_pem
-    host     = self.public_ip
-  }
-
-}
-
 }
 
 output "vpc-id" {
