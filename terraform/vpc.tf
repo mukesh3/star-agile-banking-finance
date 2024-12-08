@@ -75,7 +75,3 @@ resource "aws_security_group" "sa-sg" {
 
   }
 }
-
-output "vpc-id" {
-  value = aws_vpc.sa-vpc.id
-}
