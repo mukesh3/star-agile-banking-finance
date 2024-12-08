@@ -89,6 +89,27 @@ pipeline{
                     }
                 }
                 }
+                script {
+                    def output = sh(script: 'terraform output -json ec2_public_ip', returnStdout: true).trim()
+                    env.EC2_PUBLIC_IP = output.replaceAll('"', '') // Remove quotes if JSON returns them
+                }
+            }
+        }
+        stage('Generate Ansible Hosts File') {
+            steps {
+                script {
+                    // Write the public IP to the Ansible hosts file
+                    writeFile file: 'hosts', text: """
+                    [webserver]
+                    ${env.EC2_PUBLIC_IP} ansible_user=ec2-user ansible_ssh_private_key_file=./terraform/web-key.pem
+                    """
+                }
+            }
+        }
+        stage('Run Ansible Playbook') {
+            steps {
+                // Run the Ansible playbook using the generated hosts file
+                sh 'ansible-playbook -i ../hosts ansible/Playbook_docker.yml'
             }
         }
     }
