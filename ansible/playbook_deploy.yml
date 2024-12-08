@@ -14,7 +14,7 @@
     - name: Run Docker container
       docker_container:
         name: banking and finance app
-        image: nikitaks997797/capstone_project1:$BUILD_NUMBER
+        image: nikitaks997797/capstone_project1:2
         state: started
         ports:
           - "8080:8081" 
