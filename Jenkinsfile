@@ -88,10 +88,10 @@ pipeline{
                         error "Invalid action selected. Please choose either 'apply' or 'destroy'."
                     }
                 }
-                }
                 script {
                     def output = sh(script: 'terraform output -json instance_public_ip', returnStdout: true).trim()
                     env.EC2_PUBLIC_IP = output.replaceAll('"', '') // Remove quotes if JSON returns them
+                }
                 }
             }
         }
