@@ -44,6 +44,38 @@ pipeline{
                 sh 'docker push nikitaks997797/capstone_project1:$BUILD_NUMBER'
             }
         }
-        
+        stage('Terraform Init'){
+            steps{
+                sh 'cd ./terraform'
+                sh 'terraform  init'
+            }
+        }
+        stage('Terraform Plan'){
+            steps{
+                sh 'cd ./terraform'
+                sh 'terraform plan -out tfplan'
+                sh 'terraform show -no-color tfplan > tfplan.txt'
+            }
+        }
+        stage('Apply / Destroy') {
+            steps {
+                script {
+                    if (params.action == 'apply') {
+                        if (!params.autoApprove) {
+                            def plan = readFile './terraform/tfplan.txt'
+                            input message: "Do you want to apply the plan?",
+                            parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
+                        }
+
+                        sh 'cd terraform'
+                        sh 'terraform ${action} -input=false tfplan'
+                    } else if (params.action == 'destroy') {
+                        sh 'terraform ${action} --auto-approve'
+                    } else {
+                        error "Invalid action selected. Please choose either 'apply' or 'destroy'."
+                    }
+                }
+            }
+        }
     }
 }
