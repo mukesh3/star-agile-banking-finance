@@ -10,7 +10,7 @@ pipeline{
         stage('Clone Repo')
         {
             steps{
-                git 'https://github.com/nikitaks97/star-agile-banking-finance.git'
+                git 'https://github.com/mukesh3/star-agile-banking-finance.git'
             }
         }
         stage('Test Code')
