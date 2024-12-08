@@ -11,6 +11,9 @@ pipeline{
         AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
         AWS_DEFAULT_REGION    = 'us-east-1'
         ANSIBLE_HOST_KEY_CHECKING = 'False'
+        DOCKER_USERNAME = credentials('docker-username')  // Jenkins stored credential for Docker username
+        DOCKER_PASSWORD = credentials('docker')  // Jenkins stored credential for Docker password
+
     }
     
     parameters {
@@ -107,12 +110,18 @@ pipeline{
                 }
             }
         }
-        stage('Run Ansible Playbook') {
+        stage('Configure Test Server with Ansible') {
             steps {
                 // Run the Ansible playbook using the generated hosts file
-                sh 'sleep 120'
-                sh 'ansible-playbook -i hosts ansible/Playbook_docker.yml'
+                //sh 'sleep 120'
+                sh 'ansible-playbook -i hosts ansible/playbook_docker.yml'
             }
         }
+        stage('Deploy to Test Server') {
+            steps {
+                // Run the Ansible playbook using the generated hosts file
+                sh 'ansible-playbook -i hosts ansible/playbook_deploy.yml'
+            }
+        }        
     }
 }
