@@ -3,14 +3,11 @@
   hosts: all
   become: yes
   tasks:
-    - name: Install Docker SDK
-      pip:
-        name: docker
-        state: present
     - name: Log in to Docker Hub
-      docker_login:
-        username: "{{ lookup('env', 'DOCKER_USERNAME') }}"
-        password: "{{ lookup('env', 'DOCKER_PASSWORD') }}" 
+      echo "{{ lookup('env', 'DOCKER_PASSWORD') }}" | docker login -u "{{ lookup('env', 'DOCKER_USERNAME') }}" --password-stdin
+      env:
+        DOCKER_USERNAME: "{{ lookup('env', 'DOCKER_USERNAME') }}"
+        DOCKER_PASSWORD: "{{ lookup('env', 'DOCKER_PASSWORD') }}" 
     - name: Run Docker container
       docker_container:
         name: banking and finance app
