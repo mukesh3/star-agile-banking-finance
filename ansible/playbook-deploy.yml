@@ -1,0 +1,16 @@
+---
+- name: Install Docker
+  hosts: all
+  become: yes
+  tasks:
+    - name: Log in to Docker Hub
+      docker_login:
+        username: "{{ lookup('env', 'DOCKER_USERNAME') }}"
+        password: "{{ lookup('env', 'DOCKER_PASSWORD') }}" 
+    - name: Run Docker container
+      docker_container:
+        name: banking and finance app
+        image: nikitaks997797/capstone_project1:$BUILD_NUMBER
+        state: started
+        ports:
+          - "8080:8081" 
