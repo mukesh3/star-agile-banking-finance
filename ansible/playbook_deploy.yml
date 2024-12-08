@@ -4,10 +4,7 @@
   become: yes
   tasks:
     - name: Log in to Docker Hub
-      echo "{{ lookup('env', 'DOCKER_PASSWORD') }}" | docker login -u "{{ lookup('env', 'DOCKER_USERNAME') }}" --password-stdin
-      env:
-        DOCKER_USERNAME: "{{ lookup('env', 'DOCKER_USERNAME') }}"
-        DOCKER_PASSWORD: "{{ lookup('env', 'DOCKER_PASSWORD') }}" 
+      shell: echo "{{ lookup('env', 'DOCKER_PASSWORD') }}" | docker login -u "{{ lookup('env', 'DOCKER_USERNAME') }}" --password-stdin
     - name: Run Docker container
       docker_container:
         name: banking and finance app
