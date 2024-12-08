@@ -109,7 +109,7 @@ pipeline{
         stage('Run Ansible Playbook') {
             steps {
                 // Run the Ansible playbook using the generated hosts file
-                sh 'ansible-playbook -i ../hosts ansible/Playbook_docker.yml'
+                sh 'ansible-playbook -i hosts ansible/Playbook_docker.yml'
             }
         }
     }
