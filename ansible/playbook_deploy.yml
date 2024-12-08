@@ -13,7 +13,7 @@
        echo "{{ lookup('env', 'DOCKER_PASSWORD') }}" | docker login -u "{{ lookup('env', 'DOCKER_USERNAME') }}" --password-stdin
     - name: Run Docker container
       docker_container:
-        name: banking and finance app
+        name: bank_app
         image: nikitaks997797/capstone_project1:2
         state: started
         ports:
