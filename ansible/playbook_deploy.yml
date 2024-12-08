@@ -3,6 +3,10 @@
   hosts: all
   become: yes
   tasks:
+    - name: Install Docker SDK
+      pip:
+        name: docker
+        state: present
     - name: Log in to Docker Hub
       docker_login:
         username: "{{ lookup('env', 'DOCKER_USERNAME') }}"
