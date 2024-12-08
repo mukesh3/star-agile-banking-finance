@@ -14,8 +14,8 @@
     - name: Run Docker container
       docker_container:
         name: bank_app
-        #image: nikitaks997797/capstone_project1:"{{ BUILD_NUMBER }}"
-        image: nikitaks997797/capstone_project1:1
+        image: nikitaks997797/capstone_project1:{{ BUILD_NUMBER }}
+        #image: nikitaks997797/capstone_project1:1
         state: started
         ports:
           - "8080:8081" 
