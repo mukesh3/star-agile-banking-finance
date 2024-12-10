@@ -115,13 +115,20 @@ pipeline{
                 // Run the Ansible playbook using the generated hosts file
                 sh 'sleep 120'
                 sh 'ansible-playbook -i hosts ansible/playbook_docker.yml'
+                sh 'ansible-playbook -i hosts ansible/playbook_selenium.yml'
             }
         }
         stage('Deploy to Test Server') {
             steps {
                 // Run the Ansible playbook using the generated hosts file
-                sh 'ansible-playbook -i hosts ansible/playbook_deploy.yml --extra-vars "BUILD_NUMBER=${BUILD_NUMBER}" -v'
+                sh 'ansible-playbook -i hosts ansible/playbook_deploy.yml --extra-vars "BUILD_NUMBER=${BUILD_NUMBER}"'
             }
-        }        
+        }
+        stage('Test the application') {
+            steps {
+                // Run the Ansible playbook using the generated hosts file
+                sh 'ansible-playbook -i hosts ansible/playbook_test_app.yml'
+            }
+        }                
     }
 }
