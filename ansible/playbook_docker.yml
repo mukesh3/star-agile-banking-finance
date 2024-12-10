@@ -16,7 +16,7 @@
           - software-properties-common
         state: present
 
-    - name: Add Docker’s official GPG key
+    - name: Add Docker official GPG key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present

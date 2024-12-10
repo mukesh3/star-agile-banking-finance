@@ -5,7 +5,7 @@
   tasks:
     - name: Copy the Python script to the remote host
       copy:
-        src: ./test/test_webapp.py
+        src: ../test/test_webapp.py
         dest: /home/ubuntu/test_webapp.py
         mode: '0755'
 
