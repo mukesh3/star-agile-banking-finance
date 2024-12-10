@@ -57,6 +57,8 @@
         dest: /usr/local/bin/
         mode: '0755'
         remote_src: yes
+        extra_opts:
+          - --overwrite
 
     - name: Download Chrome
       get_url:
@@ -69,5 +71,7 @@
         src: /tmp/chrome_linux64.zip
         dest: /usr/local/bin/
         mode: '0755'
-        remote_src: yes        
+        remote_src: yes
+        extra_opts:
+          - --overwrite                
                               
