@@ -19,7 +19,8 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 # Retrieve the hostname from the environment variable 
 #hostname = os.getenv('EC2_PUBLIC_IP', 'localhost') 
 hostname = os.getenv('EC2_PUBLIC_IP') 
-webapp_url = f"http://{hostname}:8081"
+#webapp_url = f"http://{hostname}:8081"
+webapp_url = f"http://localhost:8081"
 
 test_results = []
 
