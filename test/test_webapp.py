@@ -13,7 +13,7 @@ chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
 # Path to your ChromeDriver
-service = Service('./chromedriver/chromedriver')
+service = Service('/usr/local/bin/chromedriver')
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Retrieve the hostname from the environment variable 
